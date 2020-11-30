@@ -18,6 +18,10 @@ public:
   void setupCylon();
   void loopChristmas();
   void loopCylon();
+  void start();
+  void stop();
+
+  bool state;
 
 private:
   void chooseNextColorPalette(CRGBPalette16&);

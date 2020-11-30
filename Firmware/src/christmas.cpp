@@ -1,6 +1,7 @@
 #include "christmas.h"
 
 void Christmas::setupChristmas() {
+  state = true;
   delay( 3000 ); //safety startup delay
   FastLED.setMaxPowerInVoltsAndMilliamps( VOLTS, MAX_MA);
   FastLED.addLeds<LED_TYPE,DATA_PIN,COLOR_ORDER>(leds, NUM_LEDS)
@@ -16,6 +17,10 @@ void Christmas::setupCylon() {
 
 void Christmas::loopChristmas()
 {
+  if(!state) {
+    return;
+  }
+
   EVERY_N_SECONDS( SECONDS_PER_PALETTE ) { 
     chooseNextColorPalette( gTargetPalette ); 
   }
@@ -26,6 +31,16 @@ void Christmas::loopChristmas()
 
   drawTwinkles( leds);
   
+  FastLED.show();
+}
+
+void Christmas::start() {
+  state = true;
+}
+
+void Christmas::stop() {
+  state = false;
+  leds.fadeToBlackBy(255);
   FastLED.show();
 }
 
